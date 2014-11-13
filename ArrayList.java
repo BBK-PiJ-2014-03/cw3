@@ -1,13 +1,101 @@
 public class ArrayList implements List {
 
-    private ReturnObject[] ReturnObjectArray;
+    private ReturnObject[] objectArray = null;
     
-    private final int INITIAL_SIZE = 5;
+    private final int INITIAL_SIZE = 1;
     
-    private int listSize;
-    
-    public ArrayList() {
-        ReturnObjectArray = new ReturnObjectArray[INITIAL_SIZE];
-        listSize = 0;
+
+    public boolean isEmpty() {
+        if (objectArray == null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
+    public int size() {
+        int result = 0;
+        if (this.isEmpty()) {
+            return result;
+        }
+        else {
+            for (Object element : objectArray) {
+                result++;
+            }
+        }
+        return result;
+    }
+    
+    public ReturnObject get(int index) {
+        ReturnObject result;
+        if (index >= this.size() || index < 0) {
+            result = new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        }
+        if (objectArray == null) {
+            result = new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
+        }
+        else {
+            result = objectArray[index];
+        }
+        return result;
+    }
+    
+    public ReturnObject remove(int index) {
+        ReturnObject result;
+        if (index >= this.size() || index < 0) {
+            result = new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        }
+        if (this.isEmpty()) {
+            result = new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
+        }
+        else {
+            result = objectArray[index];
+            int i = index+1;
+            for (int newIndex = index; newIndex < this.size(); newIndex++) {
+                objectArray[newIndex] = objectArray[i];
+                i++;
+            }
+        }
+        return result;
+    }
+    
+    public ReturnObject add(int index, Object item) {
+        ReturnObject result;
+        if (index < 0 || index >= this.size()) {
+            result = new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        }
+        if (item == null) {
+            result = new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
+        }
+        if (this.isEmpty()) {
+            objectArray = new ReturnObject[INITIAL_SIZE];
+            objectArray[0] = (ReturnObject)item;
+        }
+        /* if (index >= this.size()) {
+            this.add(item);
+            result = new ReturnObjectImpl(null);
+        } */
+        else {
+            ReturnObject[] newArray = new ReturnObject[(this.size()+1)];
+            
+            for (int i = 0; i < index; i++) {
+                newArray[i] = objectArray[i];
+            }
+            
+            newArray[index] = (ReturnObject)item;
+            
+            for (int i = index+1; i < newArray.length; i++) {
+                newArray[i] = objectArray[i];
+            }
+            
+            objectArray = newArray;
+            result = new ReturnObjectImpl(null);
+        }
+        return result;
+    }
+    
+    public ReturnObject add(Object item) {
+        return new ReturnObjectImpl(null);
+    }
+}
