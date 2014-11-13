@@ -50,12 +50,15 @@ public class ArrayList implements List {
             result = new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
         else {
-            result = objectArray[index];
-            int i = index+1;
-            for (int newIndex = index; newIndex < this.size(); newIndex++) {
-                objectArray[newIndex] = objectArray[i];
-                i++;
+            ReturnObject[] newArray = new ReturnObject[(this.size()-1)];
+            for (int i = 0; i < index; i++) {
+                newArray[i] = objectArray[i];
             }
+            result = objectArray[index];
+            for (int i = index; i < newArray.length; i++) {
+                newArray[i] = objectArray[i+1];
+            }
+            objectArray = newArray;
         }
         return result;
     }
@@ -78,17 +81,13 @@ public class ArrayList implements List {
         } */
         else {
             ReturnObject[] newArray = new ReturnObject[(this.size()+1)];
-            
             for (int i = 0; i < index; i++) {
                 newArray[i] = objectArray[i];
             }
-            
             newArray[index] = (ReturnObject)item;
-            
             for (int i = index+1; i < newArray.length; i++) {
                 newArray[i] = objectArray[i];
             }
-            
             objectArray = newArray;
             result = new ReturnObjectImpl(null);
         }
