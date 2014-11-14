@@ -1,6 +1,6 @@
 public class ArrayList implements List {
 
-    private ReturnObject[] objectArray = null;
+    public ReturnObject[] objectArray = null;
     
     private final int INITIAL_SIZE = 1;
     
@@ -71,12 +71,9 @@ public class ArrayList implements List {
         if (item == null) {
             result = new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
         }
-        if (this.isEmpty()) {
+        /* if (this.isEmpty()) {
             objectArray = new ReturnObject[INITIAL_SIZE];
             objectArray[0] = (ReturnObject)item;
-        }
-        /* if (index >= this.size()) {
-            this.add(item);
             result = new ReturnObjectImpl(null);
         } */
         else {
@@ -84,7 +81,7 @@ public class ArrayList implements List {
             for (int i = 0; i < index; i++) {
                 newArray[i] = objectArray[i];
             }
-            newArray[index] = (ReturnObject)item;
+            newArray[index] = new ReturnObjectImpl(item);
             for (int i = index+1; i < newArray.length; i++) {
                 newArray[i] = objectArray[i];
             }
@@ -95,6 +92,28 @@ public class ArrayList implements List {
     }
     
     public ReturnObject add(Object item) {
-        return new ReturnObjectImpl(null);
+        ReturnObject result;
+        if (item == null) {
+            result = new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
+        }
+        if (this.isEmpty()) {
+            objectArray = new ReturnObject[INITIAL_SIZE];
+            objectArray[0] = new ReturnObjectImpl(item);
+            result = new ReturnObjectImpl(null);
+        }
+        else {
+            ReturnObject[] newArray = new ReturnObject[(this.size()+1)];
+            for (int i = 0; i < objectArray.length; i++) {
+                newArray[i] = objectArray[i];
+            }
+            newArray[newArray.length-1] = new ReturnObjectImpl(item);
+            result = new ReturnObjectImpl(null);
+        }
+        return result;
+    }
+    
+    @Override
+    public String toString() {
+        return objectArray.toString();
     }
 }
