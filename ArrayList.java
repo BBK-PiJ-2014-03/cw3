@@ -1,12 +1,12 @@
 public class ArrayList implements List {
 
-    public ReturnObject[] objectArray = null;
+    public ReturnObject[] objectArray = new ReturnObject[0];
     
     private final int INITIAL_SIZE = 1;
     
 
     public boolean isEmpty() {
-        if (objectArray == null) {
+        if (objectArray.length == 0) {
             return true;
         }
         else {
@@ -20,23 +20,21 @@ public class ArrayList implements List {
             return result;
         }
         else {
-            for (Object element : objectArray) {
-                result++;
-            }
+            result = objectArray.length;
         }
         return result;
     }
     
     public ReturnObject get(int index) {
         ReturnObject result;
-        if (index >= this.size() || index < 0) {
-            result = new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        if (this.size() == 0) {
+            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
-        if (objectArray == null) {
-            result = new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
+        if (index >= this.size() || index < 0) {
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
         else {
-            result = objectArray[index];
+            result = new ReturnObjectImpl(objectArray[index].getReturnValue());
         }
         return result;
     }
@@ -44,10 +42,10 @@ public class ArrayList implements List {
     public ReturnObject remove(int index) {
         ReturnObject result;
         if (index >= this.size() || index < 0) {
-            result = new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
         if (this.isEmpty()) {
-            result = new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
+            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
         else {
             ReturnObject[] newArray = new ReturnObject[(this.size()-1)];
@@ -66,24 +64,19 @@ public class ArrayList implements List {
     public ReturnObject add(int index, Object item) {
         ReturnObject result;
         if (index < 0 || index >= this.size()) {
-            result = new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
         if (item == null) {
-            result = new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
+            return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
         }
-        /* if (this.isEmpty()) {
-            objectArray = new ReturnObject[INITIAL_SIZE];
-            objectArray[0] = (ReturnObject)item;
-            result = new ReturnObjectImpl(null);
-        } */
         else {
-            ReturnObject[] newArray = new ReturnObject[(this.size()+1)];
+            ReturnObject[] newArray = new ReturnObject[this.size()+1];
             for (int i = 0; i < index; i++) {
                 newArray[i] = objectArray[i];
             }
             newArray[index] = new ReturnObjectImpl(item);
             for (int i = index+1; i < newArray.length; i++) {
-                newArray[i] = objectArray[i];
+                newArray[i] = objectArray[i-1];
             }
             objectArray = newArray;
             result = new ReturnObjectImpl(null);
@@ -94,12 +87,12 @@ public class ArrayList implements List {
     public ReturnObject add(Object item) {
         ReturnObject result;
         if (item == null) {
-            result = new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
+            return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
         }
         if (this.isEmpty()) {
             objectArray = new ReturnObject[INITIAL_SIZE];
             objectArray[0] = new ReturnObjectImpl(item);
-            result = new ReturnObjectImpl(null);
+            return new ReturnObjectImpl(null);
         }
         else {
             ReturnObject[] newArray = new ReturnObject[(this.size()+1)];
@@ -107,13 +100,11 @@ public class ArrayList implements List {
                 newArray[i] = objectArray[i];
             }
             newArray[newArray.length-1] = new ReturnObjectImpl(item);
+            objectArray = newArray;
             result = new ReturnObjectImpl(null);
         }
         return result;
     }
     
-    @Override
-    public String toString() {
-        return objectArray.toString();
-    }
+    
 }
