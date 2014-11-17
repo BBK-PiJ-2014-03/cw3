@@ -2,15 +2,8 @@ public class ReturnObjectImpl implements ReturnObject {
 
     private Object myObject;
     
-    private int index;
-    
-    private ReturnObjectImpl next;
-    private ReturnObjectImpl prev;
-    
     public ReturnObjectImpl(Object myObject) {
         this.myObject = myObject;
-        this.next = null;
-        this.prev = null;
     }
     
     public boolean hasError() {
@@ -46,24 +39,8 @@ public class ReturnObjectImpl implements ReturnObject {
         }
     }
     
-    public ReturnObject getNext() {
-        return next;
-    }
-    public ReturnObject getPrev() {
-        return prev;
-    }
-    
-    public void setNext(ReturnObjectImpl item) {
-        this.next = item;
-    }
-    public void setPrev(ReturnObjectImpl item) {
-        this.prev = item;
-    }
-    
     @Override
     public String toString() {
         return String.valueOf(myObject);
     }
 }
-    
-    

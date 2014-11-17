@@ -1,6 +1,6 @@
 public class ArrayList implements List {
 
-    public ReturnObject[] objectArray = new ReturnObject[0];
+    private ReturnObject[] objectArray = new ReturnObject[0];
     
     private final int INITIAL_SIZE = 1;
     
