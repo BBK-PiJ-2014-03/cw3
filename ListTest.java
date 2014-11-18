@@ -14,6 +14,8 @@ public class ListTest {
         
         StackImpl newStack;
         
+        ImprovedStackImpl newImprovedStack;
+        
         /* @Before
         public void buildArrayList() {
             newArray = new ArrayList();
@@ -184,12 +186,12 @@ public class ListTest {
         }
          */
         
-        @Before
+        /* @Before
         public void buildStack () {
             newStack = new StackImpl();
         }
         
-        /* @Test
+        @Test
         public void pushTest () {
             newStack.push("abc");
             newStack.push(123);
@@ -197,7 +199,7 @@ public class ListTest {
             newStack.push("123");
             
             System.out.println(newStack.top());
-        } */
+        }
         
         @Test
         public void popTest () {
@@ -221,6 +223,33 @@ public class ListTest {
         @After
         public void cleanStack () {
             newStack = null;
+        } */
+        
+        
+        @Before
+        public void buildImproved () {
+            newArray = new ArrayList();
+            newArray.add(1);
+            newArray.add("Hello");
+            newArray.add("WORDS");
+            newArray.add(4.5);
+            newArray.add(true);
+            newArray.add("Long words");
+            newArray.add(false);
+            newArray.add(new ArrayList());
+        
+            newImprovedStack = new ImprovedStackImpl (newArray);
+        }
+        
+        @Test
+        public void testReverse () {
+            
+        }
+        
+        @After
+        public void cleanImproved () {
+            newArray = null;
+            newImprovedStack = null;
         }
         
        /*  @Before
