@@ -2,8 +2,8 @@ public class LinkedList implements List {
    
     private ReturnObjectImpl item;
    
-    public LinkedList next;
-    public LinkedList prev;
+    private LinkedList next;
+    private LinkedList prev;
    
     private int index;
    
@@ -41,7 +41,7 @@ public class LinkedList implements List {
         if (this.size() == 0) {
             return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
-        if (index < 0 || index >= this.size()) {
+        if (index < 0 || index >= size()) {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
         }
         else {
@@ -59,9 +59,6 @@ public class LinkedList implements List {
         ReturnObject result;
         if (index >= this.size() || index < 0) {
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
-        }
-        if (this.isEmpty()) {
-            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
         }
         else {
             if (this.next.index == index) {
@@ -87,7 +84,7 @@ public class LinkedList implements List {
         else {
             if (this.next == null) {
                 this.next = new LinkedList(new ReturnObjectImpl(item));
-                this.next.index = this.index + 1;
+                this.next.index = this.index+1;
                 this.next.prev = this;
                 size++;
                 return new ReturnObjectImpl(item);
