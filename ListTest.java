@@ -12,6 +12,8 @@ public class ListTest {
         
         SampleableListImpl newSample;
         
+        StackImpl newStack;
+        
         /* @Before
         public void buildArrayList() {
             newArray = new ArrayList();
@@ -145,7 +147,7 @@ public class ListTest {
         } */
         
         
-        @Before
+        /* @Before
         public void buildSample () {
             newArray = new ArrayList();
             newArray.add(1);
@@ -180,9 +182,46 @@ public class ListTest {
             newSample = null;
             newArray = null;
         }
+         */
         
+        @Before
+        public void buildStack () {
+            newStack = new StackImpl();
+        }
         
+        /* @Test
+        public void pushTest () {
+            newStack.push("abc");
+            newStack.push(123);
+            newStack.push(4.5);
+            newStack.push("123");
+            
+            System.out.println(newStack.top());
+        } */
         
+        @Test
+        public void popTest () {
+            newStack.push("abc");
+            newStack.push(789);
+            newStack.push(4.5);
+            newStack.push("123");
+            
+            System.out.println(newStack.top());
+            
+            newStack.pop();
+            
+            System.out.println(newStack.top());
+            
+            newStack.pop();
+            
+            System.out.println(newStack.top());
+            
+        }
+        
+        @After
+        public void cleanStack () {
+            newStack = null;
+        }
         
        /*  @Before
         public void buildLinkedList() {
