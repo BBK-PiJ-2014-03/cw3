@@ -27,6 +27,7 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList {
     *   @return a deep copy of the calling LinkedList with the head element removed
     *
     */
+    @Override
     public FunctionalList rest() {
         FunctionalList result = new FunctionalLinkedList();
         int count = this.size()-1;
