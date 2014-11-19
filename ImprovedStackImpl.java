@@ -10,28 +10,22 @@ public class ImprovedStackImpl implements ImprovedStack {
         ArrayList newArray = new ArrayList();
         
         int count = stack.internalList.size() - 1;
-        for (int i = 0; i < stack.internalList.size(); i++) {
+        for (int i = 0; i < stack.internalList.size()-1; i++) {
             newArray.add(stack.internalList.get(count));
             count--;
         }
         ImprovedStack test = new ImprovedStackImpl(new StackImpl());
-        for (int i = 0; i < newArray.size(); i++) {
+        for (int i = 0; i < newArray.size()-1; i++) {
             test.push(newArray.get(i).getReturnValue());
         }
         return test;
     }
     
     public void remove(Object object) {
-        ArrayList newArray = new ArrayList();
-        
-        for (int i = 0; i < stack.internalList.size(); i++) {
+        for (int i = 0; i < stack.internalList.size()-1; i++) {
             if (stack.internalList.get(i).getReturnValue().equals(object)) {
-                return;
+                stack.internalList.remove(i);
             }
-            else {
-                newArray.add(new ReturnObjectImpl(stack.internalList.get(i).getReturnValue()));
-            }
-        stack.internalList = newArray;
         }
     }
     
