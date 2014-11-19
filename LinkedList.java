@@ -2,8 +2,8 @@ public class LinkedList implements List {
    
     private ReturnObjectImpl item;
    
-    private LinkedList next;
-    private LinkedList prev;
+    public LinkedList next;
+    public LinkedList prev;
    
     private int index;
    
@@ -49,7 +49,7 @@ public class LinkedList implements List {
                 result = new ReturnObjectImpl(this.next.item.getReturnValue());
             }
             else {
-                return this.next.get(index);
+                return this.next.get(index+1);
             }
         return result;
         }
@@ -67,9 +67,10 @@ public class LinkedList implements List {
                 this.next.prev = this;
                 this.next.increaseIndex(index);
                 size--;
+                
             }
             else {
-                return this.next.remove(index);
+                return this.next.remove(index+1);
             }
         }
         return result;
@@ -113,6 +114,7 @@ public class LinkedList implements List {
                 newNode.prev = this;
                 newNode.next = this.next;
                 this.next.increaseIndex(index);
+                size++;
                 result = new ReturnObjectImpl(null);
             }
             else {
